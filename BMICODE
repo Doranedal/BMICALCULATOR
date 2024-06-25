@@ -1,0 +1,106 @@
+'''
+Create a program for a BMI calculator that takes the name, age, height, and weight of a person and
+stores the data into a file. Allow the application to show weather the user is Underweight,
+Overweight, Obese, or Normal.
+Make sure you add validation rules.
+Add a ‘Show Graph’ button that display a pie chart of the data stored, showing the percentage of
+people under certain BMI categories.
+Challenge:
+Can you allow the chart to show on the same window? You may need to use another library'''
+
+import tkinter
+from tkinter import messagebox
+from matplotlib import pyplot as plt
+import numpy as np
+
+file_name='Bmiresult.txt'
+def save_value():
+    global values
+    with open('Bmiresult.txt','a') as f:
+        f.write(values+'\n')
+def load_value():
+    with open('Bmiresult.txt','r') as f:
+        read=f.read()
+        messagebox.showwarning(read)
+
+def bmi_result():
+    global values
+    name=nameentry.get()
+    age=agespinbox.get()
+    weight=weightentry.get()
+    height=heightentry.get()
+    bmi = float(weight)/ (float(height) ** 2)
+    if bmi<18.5:
+        values='Underweight'
+        messagebox.showwarning('value','Underweight')
+    elif bmi<25:
+        values='Healthy'
+        messagebox.showwarning('value','Healthy')
+    elif bmi<30:
+        values='Overweight'
+        messagebox.showwarning('value','overweight')
+    elif bmi>=30:
+        values='Obese'
+        messagebox.showwarning('value','Obese')
+
+
+
+values=''
+window=tkinter.Tk()
+window.title('BMI CALCULATOR FORM')
+
+frame=tkinter.Frame(window)
+frame.pack()
+
+bmicalculatorframe=tkinter.LabelFrame(frame,text='Bmi Calculator')
+bmicalculatorframe.grid(row=0,column=0)
+
+namelabel=tkinter.Label(bmicalculatorframe,text='Name')
+namelabel.grid(row=0,column=0)
+
+nameentry=tkinter.Entry(bmicalculatorframe)
+nameentry.grid(row=0,column=1)
+
+agelabel=tkinter.Label(bmicalculatorframe, text='age')
+agespinbox=tkinter.Spinbox(bmicalculatorframe,from_=15,to=75)
+agelabel.grid(row=0,column=2)
+agespinbox.grid(row=0,column=3)
+
+weightlabel=tkinter.Label(bmicalculatorframe, text='Weight(kg)')
+weightlabel.grid(row=1, column=0)
+
+weightentry=tkinter.Entry(bmicalculatorframe)
+weightentry.grid(row=1, column=1)
+
+heightlabel=tkinter.Label(bmicalculatorframe, text='Height(m)')
+heightlabel.grid(row=1, column=2)
+
+heightentry=tkinter.Entry(bmicalculatorframe)
+heightentry.grid(row=1, column=3)
+
+calculatebtn=tkinter.Button(frame, text='Calculate',command=bmi_result)
+calculatebtn.grid(row=2, column=0)
+
+savebtn=tkinter.Button(frame, text='Save', command = save_value)
+savebtn.grid(row=2,column=2)
+
+showgraphbtn=tkinter.Button(frame, text='Show Graph', command=bmi_result)
+showgraphbtn.grid(row=3, column=0)
+
+
+def piechat():
+    Bmicategories=[]
+    labels=['Underweight','Healthy''Overweight','Obese']
+
+    labels.append()
+    numbers.append()
+
+    f,a=plt.subplots()
+    a.pie=(numbers, labels==labels)
+    plt.title('BMI RESULT')
+    plt.show()
+
+
+
+window.mainloop()
+
