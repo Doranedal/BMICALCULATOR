@@ -43,6 +43,32 @@ def bmi_result():
         values='Obese'
         messagebox.showwarning('value','Obese')
 
+def show_piechart():
+    try:
+        Bmicategories={'underweight','healthy','obese','underweight'}
+        categories,list=[]
+        with open('Bmiresult.txt','r') as f:
+            lines=f.readlines()
+            for line in lines:
+                if 'Bmicategory:' in line:
+                    Bmicategories=line.split('category:')[1].strip()
+                    categories[Bmicategory]+=1
+
+        labels=list(categories.keys())
+        values=list(categories.values())
+
+        f,a=plt.subplots()
+        a.pie=(values, labels==labels, autopct=='%1.1f%%, startangle==140')
+        plt.title('BMI CATEGORY CHART')
+        plt.axis('equal')
+        plt.show()
+
+
+
+    except FileNotFoundError:
+        print('Error')
+
+
 
 
 values=''
@@ -84,22 +110,8 @@ calculatebtn.grid(row=2, column=0)
 savebtn=tkinter.Button(frame, text='Save', command = save_value)
 savebtn.grid(row=2,column=2)
 
-showgraphbtn=tkinter.Button(frame, text='Show Graph', command=bmi_result)
+showgraphbtn=tkinter.Button(frame, text='Show Graph', command=show_piechart)
 showgraphbtn.grid(row=3, column=0)
-
-
-def piechat():
-    Bmicategories=[]
-    labels=['Underweight','Healthy''Overweight','Obese']
-
-    labels.append()
-    numbers.append()
-
-    f,a=plt.subplots()
-    a.pie=(numbers, labels==labels)
-    plt.title('BMI RESULT')
-    plt.show()
-
 
 
 window.mainloop()
