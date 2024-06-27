@@ -45,25 +45,23 @@ def bmi_result():
 
 def show_piechart():
     try:
-        Bmicategories={'underweight','healthy','obese','underweight'}
-        categories,list=[]
+        Bmicategories={'Underweight':0,'Healthy':0,'Obese':0,'Overweight':0}
+
         with open('Bmiresult.txt','r') as f:
-            lines=f.readlines()
-            for line in lines:
-                if 'Bmicategory:' in line:
-                    Bmicategories=line.split('category:')[1].strip()
-                    categories[Bmicategory]+=1
+            for line in f:
+                    category=line.strip()
+                    Bmicategories[category]+=1
+        colors = ['blue', 'yellow', 'green', 'orange']
 
-        labels=list(categories.keys())
-        values=list(categories.values())
+        labels=list(Bmicategories.keys())
+        values=list(Bmicategories.values())
 
-        f,a=plt.subplots()
-        a.pie=(values, labels==labels, autopct=='%1.1f%%, startangle==140')
+        f,ax=plt.subplots()
+        ax.pie(values, labels=labels, colors=colors,  autopct='%1.2f%%', startangle=140, shadow=True)
         plt.title('BMI CATEGORY CHART')
         plt.axis('equal')
+
         plt.show()
-
-
 
     except FileNotFoundError:
         print('Error')
@@ -115,4 +113,10 @@ showgraphbtn.grid(row=3, column=0)
 
 
 window.mainloop()
+
+
+
+
+
+
 
